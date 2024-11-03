@@ -1,0 +1,88 @@
+﻿@model IEnumerable<TTCD_CaoVanBinh_2210900091.Models.MEMBER>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.member_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.member_username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.member_pass)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dia_chi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.member_phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.member_email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ngay_sinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ngay_cap_nhap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gioi_tinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tich_diem)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.member_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.member_username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.member_pass)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dia_chi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.member_phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.member_email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ngay_sinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ngay_cap_nhap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gioi_tinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tich_diem)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.member_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.member_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.member_id })
+        </td>
+    </tr>
+}
+
+</table>

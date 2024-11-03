@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="762057cf924c4f3a849b4463db820086" Name="Diagram1">
+        <EntityTypeShape EntityType="TTCD_Cvb_2210900091Model.MEMBER" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTCD_Cvb_2210900091Model.ORDER_DETAIL" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTCD_Cvb_2210900091Model.ORDER" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTCD_Cvb_2210900091Model.PRODUCT" Width="1.5" PointX="3.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTCD_Cvb_2210900091Model.QUAN_TRI" Width="1.5" PointX="5.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTCD_Cvb_2210900091Model.REVIEW" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTCD_Cvb_2210900091Model.sysdiagram" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <AssociationConnector Association="TTCD_Cvb_2210900091Model.FK__ORDERS__member_i__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="TTCD_Cvb_2210900091Model.FK__REVIEW__member_i__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="TTCD_Cvb_2210900091Model.FK__ORDER_DET__order__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="TTCD_Cvb_2210900091Model.FK__ORDER_DET__produ__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="TTCD_Cvb_2210900091Model.FK__REVIEW__product___5AEE82B9" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

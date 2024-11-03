@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TTCD_Cvb_2210900091Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="MEMBER">
+    <Key>
+      <PropertyRef Name="member_id" />
+    </Key>
+    <Property Name="member_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="member_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="member_username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="member_pass" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="dia_chi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="member_phone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="member_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ngay_sinh" Type="DateTime" Precision="3" />
+    <Property Name="ngay_cap_nhap" Type="DateTime" Precision="3" />
+    <Property Name="gioi_tinh" Type="Byte" />
+    <Property Name="tich_diem" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ORDERS" Relationship="Self.FK__ORDERS__member_i__52593CB8" FromRole="MEMBER" ToRole="ORDERS" />
+    <NavigationProperty Name="REVIEWs" Relationship="Self.FK__REVIEW__member_i__59FA5E80" FromRole="MEMBER" ToRole="REVIEW" />
+  </EntityType>
+  <EntityType Name="ORDER_DETAIL">
+    <Key>
+      <PropertyRef Name="order_id" />
+      <PropertyRef Name="product_id" />
+    </Key>
+    <Property Name="order_id" Type="Int32" Nullable="false" />
+    <Property Name="product_id" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ORDER" Relationship="Self.FK__ORDER_DET__order__5535A963" FromRole="ORDER_DETAIL" ToRole="ORDERS" />
+    <NavigationProperty Name="PRODUCT" Relationship="Self.FK__ORDER_DET__produ__5629CD9C" FromRole="ORDER_DETAIL" ToRole="PRODUCT" />
+  </EntityType>
+  <EntityType Name="ORDER">
+    <Key>
+      <PropertyRef Name="order_id" />
+    </Key>
+    <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="order_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="order_status" Type="Byte" Nullable="false" />
+    <Property Name="total_price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="member_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MEMBER" Relationship="Self.FK__ORDERS__member_i__52593CB8" FromRole="ORDERS" ToRole="MEMBER" />
+    <NavigationProperty Name="ORDER_DETAIL" Relationship="Self.FK__ORDER_DET__order__5535A963" FromRole="ORDERS" ToRole="ORDER_DETAIL" />
+  </EntityType>
+  <EntityType Name="PRODUCT">
+    <Key>
+      <PropertyRef Name="product_id" />
+    </Key>
+    <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="product_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="product_price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="product_size" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="product_color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="product_quantity" Type="Int32" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="product_image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ORDER_DETAIL" Relationship="Self.FK__ORDER_DET__produ__5629CD9C" FromRole="PRODUCT" ToRole="ORDER_DETAIL" />
+    <NavigationProperty Name="REVIEWs" Relationship="Self.FK__REVIEW__product___5AEE82B9" FromRole="PRODUCT" ToRole="REVIEW" />
+  </EntityType>
+  <EntityType Name="QUAN_TRI">
+    <Key>
+      <PropertyRef Name="admin_username" />
+    </Key>
+    <Property Name="admin_username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="admin_pass" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="admin_status" Type="Byte" Nullable="false" />
+  </EntityType>
+  <EntityType Name="REVIEW">
+    <Key>
+      <PropertyRef Name="review_id" />
+    </Key>
+    <Property Name="review_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="rating" Type="Byte" Nullable="false" />
+    <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="member_id" Type="Int32" Nullable="false" />
+    <Property Name="product_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MEMBER" Relationship="Self.FK__REVIEW__member_i__59FA5E80" FromRole="REVIEW" ToRole="MEMBER" />
+    <NavigationProperty Name="PRODUCT" Relationship="Self.FK__REVIEW__product___5AEE82B9" FromRole="REVIEW" ToRole="PRODUCT" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__ORDERS__member_i__52593CB8">
+    <End Role="MEMBER" Type="Self.MEMBER" Multiplicity="1" />
+    <End Role="ORDERS" Type="Self.ORDER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MEMBER">
+        <PropertyRef Name="member_id" />
+      </Principal>
+      <Dependent Role="ORDERS">
+        <PropertyRef Name="member_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__REVIEW__member_i__59FA5E80">
+    <End Role="MEMBER" Type="Self.MEMBER" Multiplicity="1" />
+    <End Role="REVIEW" Type="Self.REVIEW" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MEMBER">
+        <PropertyRef Name="member_id" />
+      </Principal>
+      <Dependent Role="REVIEW">
+        <PropertyRef Name="member_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ORDER_DET__order__5535A963">
+    <End Role="ORDERS" Type="Self.ORDER" Multiplicity="1" />
+    <End Role="ORDER_DETAIL" Type="Self.ORDER_DETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ORDERS">
+        <PropertyRef Name="order_id" />
+      </Principal>
+      <Dependent Role="ORDER_DETAIL">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ORDER_DET__produ__5629CD9C">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="ORDER_DETAIL" Type="Self.ORDER_DETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="product_id" />
+      </Principal>
+      <Dependent Role="ORDER_DETAIL">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__REVIEW__product___5AEE82B9">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="REVIEW" Type="Self.REVIEW" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="product_id" />
+      </Principal>
+      <Dependent Role="REVIEW">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TTCD_Cvb_2210900091Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="MEMBERs" EntityType="Self.MEMBER" />
+    <EntitySet Name="ORDER_DETAIL" EntityType="Self.ORDER_DETAIL" />
+    <EntitySet Name="ORDERS" EntityType="Self.ORDER" />
+    <EntitySet Name="PRODUCTs" EntityType="Self.PRODUCT" />
+    <EntitySet Name="QUAN_TRI" EntityType="Self.QUAN_TRI" />
+    <EntitySet Name="REVIEWs" EntityType="Self.REVIEW" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK__ORDERS__member_i__52593CB8" Association="Self.FK__ORDERS__member_i__52593CB8">
+      <End Role="MEMBER" EntitySet="MEMBERs" />
+      <End Role="ORDERS" EntitySet="ORDERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__REVIEW__member_i__59FA5E80" Association="Self.FK__REVIEW__member_i__59FA5E80">
+      <End Role="MEMBER" EntitySet="MEMBERs" />
+      <End Role="REVIEW" EntitySet="REVIEWs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ORDER_DET__order__5535A963" Association="Self.FK__ORDER_DET__order__5535A963">
+      <End Role="ORDERS" EntitySet="ORDERS" />
+      <End Role="ORDER_DETAIL" EntitySet="ORDER_DETAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ORDER_DET__produ__5629CD9C" Association="Self.FK__ORDER_DET__produ__5629CD9C">
+      <End Role="PRODUCT" EntitySet="PRODUCTs" />
+      <End Role="ORDER_DETAIL" EntitySet="ORDER_DETAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK__REVIEW__product___5AEE82B9" Association="Self.FK__REVIEW__product___5AEE82B9">
+      <End Role="PRODUCT" EntitySet="PRODUCTs" />
+      <End Role="REVIEW" EntitySet="REVIEWs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
