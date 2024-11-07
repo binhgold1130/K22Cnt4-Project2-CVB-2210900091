@@ -17,7 +17,8 @@ namespace TTCD_CaoVanBinh_2210900091.Models
         public int order_id { get; set; }
         public int product_id { get; set; }
         public int quantity { get; set; }
-    
+        public decimal product_price { get; set; }
+
         public virtual ORDER ORDER { get; set; }
         public virtual PRODUCT PRODUCT { get; set; }
     }

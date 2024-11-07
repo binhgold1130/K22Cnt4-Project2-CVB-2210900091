@@ -25,7 +25,7 @@ namespace TTCD_CaoVanBinh_2210900091.Models
         public byte order_status { get; set; }
         public decimal total_price { get; set; }
         public int member_id { get; set; }
-    
+        public decimal product_price { get; set; }
         public virtual MEMBER MEMBER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDER_DETAIL> ORDER_DETAIL { get; set; }

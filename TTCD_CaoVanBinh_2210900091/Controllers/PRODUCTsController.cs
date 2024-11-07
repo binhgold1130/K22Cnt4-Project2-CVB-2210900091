@@ -20,7 +20,8 @@ namespace TTCD_CaoVanBinh_2210900091.Controllers
             return View(db.PRODUCTs.ToList());
         }
 
-        // GET: PRODUCTs/Details/5
+
+        /// GET: PRODUCTs/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -34,94 +35,133 @@ namespace TTCD_CaoVanBinh_2210900091.Controllers
             }
             return View(pRODUCT);
         }
-
-        // GET: PRODUCTs/Create
-        public ActionResult Create()
+        [HttpGet]
+        public ActionResult Search(string query)
         {
-            return View();
-        }
-
-        // POST: PRODUCTs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "product_id,product_name,product_price,product_size,product_color,product_quantity,description,product_image")] PRODUCT pRODUCT)
-        {
-            if (ModelState.IsValid)
+            if (string.IsNullOrEmpty(query))
             {
-                db.PRODUCTs.Add(pRODUCT);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ProIndex"); // Trở lại trang danh sách nếu không có từ khóa
             }
 
-            return View(pRODUCT);
+            var products = db.PRODUCTs
+                              .Where(p => p.product_name.Contains(query)) // Tìm kiếm theo tên sản phẩm
+                              .ToList();
+
+            return View(products); // Trả về view Search với kết quả
         }
 
-        // GET: PRODUCTs/Edit/5
-        public ActionResult Edit(int? id)
+
+        // GET: Shopping Cart
+        public ActionResult Cart()
         {
-            if (id == null)
+            List<ORDER_DETAIL> cart = Session["Cart"] as List<ORDER_DETAIL> ?? new List<ORDER_DETAIL>();
+            return View(cart);
+        }
+
+        // Method to remove a product from the cart
+        public ActionResult RemoveFromCart(int id)
+        {
+            List<ORDER_DETAIL> cart = Session["Cart"] as List<ORDER_DETAIL>;
+            if (cart != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var productToRemove = cart.FirstOrDefault(p => p.product_id == id);
+                if (productToRemove != null)
+                {
+                    cart.Remove(productToRemove);
+                }
+                Session["Cart"] = cart;
             }
-            PRODUCT pRODUCT = db.PRODUCTs.Find(id);
-            if (pRODUCT == null)
+
+            return RedirectToAction("Cart");
+        }
+
+        // Method to add product to the cart
+        public ActionResult AddToCart(int id)
+        {
+            var product = db.PRODUCTs.Find(id);
+            if (product == null)
             {
                 return HttpNotFound();
             }
-            return View(pRODUCT);
+
+            List<ORDER_DETAIL> cart = Session["Cart"] as List<ORDER_DETAIL> ?? new List<ORDER_DETAIL>();
+            var existingProduct = cart.FirstOrDefault(p => p.product_id == id);
+            if (existingProduct != null)
+            {
+                existingProduct.quantity++;
+            }
+            else
+            {
+                cart.Add(new ORDER_DETAIL
+                {
+                    product_id = product.product_id,
+                    PRODUCT = product,
+                    quantity = 1,
+                    product_price = product.product_price
+                });
+            }
+
+            Session["Cart"] = cart;
+            return RedirectToAction("Cart");
         }
 
-        // POST: PRODUCTs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "product_id,product_name,product_price,product_size,product_color,product_quantity,description,product_image")] PRODUCT pRODUCT)
+        // Method to proceed to checkout and create an order
+        public ActionResult Checkout()
         {
-            if (ModelState.IsValid)
+            List<ORDER_DETAIL> cart = Session["Cart"] as List<ORDER_DETAIL>;
+            if (cart == null || cart.Count == 0)
             {
-                db.Entry(pRODUCT).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Cart"); // Redirect to cart if it's empty
             }
-            return View(pRODUCT);
-        }
 
-        // GET: PRODUCTs/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
+            // Create a new order
+            var order = new ORDER
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PRODUCT pRODUCT = db.PRODUCTs.Find(id);
-            if (pRODUCT == null)
-            {
-                return HttpNotFound();
-            }
-            return View(pRODUCT);
-        }
+                order_date = DateTime.Now,
+                order_status = 1, // Set to 1 for pending
+                product_price = cart.Sum(i => i.product_price * i.quantity),
+                total_price = cart.Sum(i => i.product_price * i.quantity), // Total price of the order
+                member_id = 1,/* Set the member ID here, e.g., from the logged-in user's session */
+            };
 
-        // POST: PRODUCTs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            PRODUCT pRODUCT = db.PRODUCTs.Find(id);
-            db.PRODUCTs.Remove(pRODUCT);
+            // Add the order to the database
+            db.ORDERS.Add(order);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            // Create order details for each item in the cart
+            foreach (var item in cart)
+            {
+                var orderDetail = new ORDER_DETAIL
+                {
+                    order_id = order.order_id, // Link to the new order
+                    product_id = item.product_id,
+                    quantity = item.quantity,
+                    product_price = item.product_price
+                };
+
+                db.ORDER_DETAIL.Add(orderDetail);
+            }
+
+            db.SaveChanges();
+
+            // Clear the cart after successful checkout
+            Session["Cart"] = null;
+
+            // Redirect to order confirmation page or cart
+            return RedirectToAction("OrderConfirmation", new { id = order.order_id });
         }
 
-        protected override void Dispose(bool disposing)
+        // Add an action to confirm the order
+        public ActionResult OrderConfirmation(int id)
         {
-            if (disposing)
+            var order = db.ORDERS.Include("ORDER_DETAIL").FirstOrDefault(o => o.order_id == id);
+            if (order == null)
             {
-                db.Dispose();
+                return HttpNotFound();
             }
-            base.Dispose(disposing);
+
+            return View(order);
         }
+
     }
 }

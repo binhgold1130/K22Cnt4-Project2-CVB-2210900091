@@ -129,12 +129,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MEMBERsController.cs" />
     <Compile Include="Controllers\PRODUCTsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MEMBER.cs">
       <DependentUpon>QLCH.tt</DependentUpon>
@@ -241,9 +243,12 @@
     <Content Include="Views\MEMBERs\Index.cshtml" />
     <Content Include="Views\Home\Tutorial.cshtml" />
     <Content Include="Views\Home\Cart.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\OrderConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="image\" />
     <Folder Include="Views\Tutorial\" />
   </ItemGroup>
   <ItemGroup>

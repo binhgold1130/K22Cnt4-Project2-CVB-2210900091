@@ -1,0 +1,25 @@
+﻿@model TTCD_CaoVanBinh_2210900091.Models.ORDER
+
+<h2>Thank You for Your Order!</h2>
+<p>Order Date: @Model.order_date</p>
+<p>Total Amount: @Model.total_price</p>
+
+<h3>Order Items</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detail in Model.ORDER_DETAIL)
+        {
+<tr>
+    <td>@detail.PRODUCT.product_id</td>
+    <td>@detail.quantity</td>
+    <td>@detail.product_price</td>
+</tr>}
+    </tbody>
+</table>
