@@ -1,0 +1,35 @@
+﻿@model TTCD_CaoVanBinh_2210900091.Models.QUAN_TRI
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>QUAN_TRI</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.admin_pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.admin_pass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.admin_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.admin_status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.admin_username }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

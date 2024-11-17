@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Trang Chủ";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 class="text-center">Trang Chủ - Cửa Hàng Điện Thoại</h2>
+
+<div class="row">
+    <!-- Card Tổng Sản Phẩm -->
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Tổng Sản Phẩm</div>
+            <div class="card-body">
+                <h5 class="card-title">@ViewBag.TotalProducts sản phẩm</h5>
+                <p class="card-text">Tổng số sản phẩm hiện có trong cửa hàng.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Tổng Đơn Hàng -->
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Tổng Đơn Hàng</div>
+            <div class="card-body">
+                <h5 class="card-title">@ViewBag.TotalOrders đơn hàng</h5>
+                <p class="card-text">Số lượng đơn hàng đã hoàn thành hoặc đang chờ xử lý.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Tổng Khách Hàng -->
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">Tổng Khách Hàng</div>
+            <div class="card-body">
+                <h5 class="card-title">@ViewBag.TotalCustomers khách hàng</h5>
+                <p class="card-text">Số lượng khách hàng đã đăng ký tài khoản.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Tổng Doanh Thu -->
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Tổng Doanh Thu</div>
+            <div class="card-body">
+                <h5 class="card-title">@ViewBag.TotalRevenue VNĐ</h5>
+                <p class="card-text">Tổng doanh thu từ các đơn hàng đã hoàn thành.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+

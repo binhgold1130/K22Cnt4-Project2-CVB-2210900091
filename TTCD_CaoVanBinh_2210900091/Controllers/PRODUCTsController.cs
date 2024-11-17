@@ -97,7 +97,8 @@ namespace TTCD_CaoVanBinh_2210900091.Controllers
                     product_id = product.product_id,
                     PRODUCT = product,
                     quantity = 1,
-                    product_price = product.product_price
+                    product_price = product.product_price // Nếu 'product_price' nằm trong lớp PRODUCT
+
                 });
             }
 

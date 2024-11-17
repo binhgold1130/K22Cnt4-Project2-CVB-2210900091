@@ -171,10 +171,18 @@
     <Compile Include="Models\REVIEW.cs">
       <DependentUpon>QLCH.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>QLCH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>QLCH.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>QLCH.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\QUAN_TRI1Controller.cs" />
+    <Compile Include="Views\QUAN_TRIController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -245,6 +253,13 @@
     <Content Include="Views\Home\Cart.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\OrderConfirmation.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\QUAN_TRI1\Create.cshtml" />
+    <Content Include="Views\QUAN_TRI1\Delete.cshtml" />
+    <Content Include="Views\QUAN_TRI1\Details.cshtml" />
+    <Content Include="Views\QUAN_TRI1\Edit.cshtml" />
+    <Content Include="Views\QUAN_TRI1\Index.cshtml" />
+    <Content Include="Views\QUAN_TRI1\TrangChu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

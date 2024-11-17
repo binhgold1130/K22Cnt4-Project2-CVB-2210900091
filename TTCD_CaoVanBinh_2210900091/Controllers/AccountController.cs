@@ -61,7 +61,7 @@ namespace TTCD_CaoVanBinh_2210900091.Controllers
                 {
                     Session["AdminAccount"] = admin;
                     FormsAuthentication.SetAuthCookie(admin.admin_username, false);
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Index", "Quan_Tri1");
                 }
 
                 ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
